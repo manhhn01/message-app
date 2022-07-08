@@ -1,3 +1,7 @@
+:root{
+  --ascent-color: #4784de;
+}
+
 *,
 *::before,
 *::after {

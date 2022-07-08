@@ -1,0 +1,50 @@
+.conversation-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 20px;
+  font-weight: 500;
+  color: rgb(100, 100, 100);
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.conversation-group-header-title {
+  display: flex;
+  font-size: 0.875rem;
+  align-items: center;
+}
+
+.conversation-group-status-icon {
+  color: rgb(204, 204, 204);
+}
+
+.conversation-group-header-title > .icon-wrapper {
+  display: flex;
+  font-size: 1.1rem;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: white;
+  background-color: #dc9644;
+  padding: 6px;
+  margin-right: 10px;
+}
+
+.conversation-group-list {
+  padding: 0;
+  list-style: none;
+  transition: max-height 350ms ease-in-out;
+  /* item: 55px+10px */
+  max-height: 325px;
+  overflow-y: auto;
+}
+
+/* minimize */
+.minimize .conversation-group-list {
+  max-height: 0;
+  opacity: 0;
+  overflow-y: hidden;
+}

@@ -1,0 +1,13 @@
+.btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-rounded {
+  color: rgb(156, 156, 156);
+  padding: 10px;
+  background-color: rgb(237, 237, 237);
+  border-radius: 999px;
+}

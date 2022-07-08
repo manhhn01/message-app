@@ -1,15 +1,14 @@
-import { Outlet, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import './App.css';
-import HomePage from './pages/HomePage';
-import DefaultLayout from './pages/layouts/DefaultLayout';
+import Chat from './components/Chat';
+import MainPage from './pages/MainPage';
 
 function App() {
   return useRoutes([
     {
-      // element: <DefaultLayout />,
-      // children: [{ path: '/', element: <HomePage /> }],
       path: '/',
-      element: <HomePage />,
+      element: <MainPage />,
+      // element: <HomePage />,
     },
   ]);
 }

@@ -1,0 +1,17 @@
+.chat-header {
+  height: var(--app-header-height);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgb(240, 240, 240);
+  padding: 0 25px;
+}
+
+.chat-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.chat-header-right > .header-btn:not(:last-child) {
+  margin-right: 8px;
+}
