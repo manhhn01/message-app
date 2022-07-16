@@ -49,20 +49,58 @@ function Chat() {
               <div className={cx('message')}>Are you there?</div>
             </div>
           </div>
+          <div className={cx('message-group')}>
+            <div className={cx('sender-info')}>
+              <div>
+                <div className={cx('sender-name')}>William</div>
+                <div className={cx('timestamp')}>10:00 hôm qua</div>
+              </div>
+              <img
+                className={cx('sender-avatar')}
+                src={userImage}
+                alt="username"
+              />
+            </div>
+            <div className={cx('messages')}>
+              <div className={cx('message')}>Hello</div>
+              <div className={cx('message')}>Are you there?</div>
+            </div>
+          </div>
+          <div className={cx('message-group')}>
+            <div className={cx('sender-info')}>
+              <div>
+                <div className={cx('sender-name')}>William</div>
+                <div className={cx('timestamp')}>10:00 hôm qua</div>
+              </div>
+              <img
+                className={cx('sender-avatar')}
+                src={userImage}
+                alt="username"
+              />
+            </div>
+            <div className={cx('messages')}>
+              <div className={cx('message')}>Hello</div>
+              <div className={cx('message')}>Are you there?</div>
+            </div>
+          </div>
         </div>
-        <div className={cx('chat-input')}>
-          <Button type="button" className={cx('emoji-btn')}>
-            <AiOutlineSmile />
-          </Button>
-          <input
-            type="text"
-            value={message}
-            onChange={({target})=>setMessage(target.value.toString().trimStart())}
-            placeholder="Nhập tin nhắn..."
-          />
-          <Button type="button" className={cx('send-btn')}>
-            {message.length > 0 ? <AiOutlineSend /> : <AiFillLike />}
-          </Button>
+        <div className={cx('chat-input-wrapper')}>
+          <div className={cx('chat-input')}>
+            <Button type="button" className={cx('emoji-btn')}>
+              <AiOutlineSmile />
+            </Button>
+            <input
+              type="text"
+              value={message}
+              onChange={({ target }) =>
+                setMessage(target.value.toString().trimStart())
+              }
+              placeholder="Nhập tin nhắn..."
+            />
+            <Button type="button" className={cx('send-btn')}>
+              {message.length > 0 ? <AiOutlineSend /> : <AiFillLike />}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

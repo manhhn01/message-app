@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { BsPinAngleFill } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import userImg from '../../images/user.jpg';
 import ConversationGroup from './ConversationGroup';
 import Conversation from './ConversationGroup/Conversation';
@@ -9,6 +10,7 @@ import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+  
   return (
     <div className={cx('sidebar')}>
       <Header />

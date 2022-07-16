@@ -5,9 +5,31 @@
   cursor: pointer;
 }
 
+.btn-full {
+  display: block;
+  width: 100%;
+}
+
 .btn-rounded {
   color: rgb(156, 156, 156);
   padding: 10px;
   background-color: rgb(237, 237, 237);
   border-radius: 999px;
+}
+
+.btn-background {
+  background-color: rgb(53, 53, 151);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 350ms ease-in-out;
+}
+
+.btn-background:hover {
+  background-color: rgb(82, 82, 199);
+}
+
+.btn-color{
+  font-weight: 600;
+  color: var(--ascent-color);
 }

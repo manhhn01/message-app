@@ -7,9 +7,28 @@
   padding: 0 25px;
 }
 
+.conversation-name-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.conversation-name-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-left: 6px;
+}
+
+.chat-header-left,
 .chat-header-right {
   display: flex;
   align-items: center;
+  width: 50%;
+}
+
+.chat-header-right{
+  justify-content: flex-end;
 }
 
 .chat-header-right > .header-btn:not(:last-child) {

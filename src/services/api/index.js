@@ -1,23 +1,33 @@
 import axios from 'axios';
 
 export class ApiService {
-  constructor(auth = false) {
+  constructor() {
     this.controller = new AbortController();
-    this.auth = auth;
     this.accessToken = localStorage.getItem('accessToken') || null;
-    this.client = axios.create({
+
+    const axiosConfig = {
       baseURL: import.meta.env.VITE_BASE_API_URL,
       signal: this.controller.signal,
-      headers: { Authorization: `Bearer ${this.accessToken}` },
-    });
+    };
+    if (this.accessToken)
+      axiosConfig.headers = { Authorization: `Bearer ${this.accessToken}` };
+    this.client = axios.create(axiosConfig);
   }
 
   get(url, config, ...args) {
-    return this.client.get(url, config, ...args).catch((err) => {
+    return this.client.get(url, config, ...args).catch((err) =>
       this.handleRequestError(err).then(() => {
         return this.get(url, config, ...args);
-      });
-    });
+      })
+    );
+  }
+
+  post(url, data, config, ...args) {
+    return this.client.post(url, data, config, ...args).catch((err) =>
+      this.handleRequestError(err).then(() => {
+        return this.get(url, config, ...args);
+      })
+    );
   }
 
   handleRequestError(err) {
@@ -25,26 +35,12 @@ export class ApiService {
       // Request was made but server responded with a 4xx or 5xx code
       switch (err.response.status) {
         case 401: {
-          // handle 401
-          if (this.auth) {
-            //todo
-            return Promise.reject();
-            // const refreshToken = localStorage.getItem('refreshToken');
-            // if (refreshToken)
-            //   axios.post('/api/login/refresh', { refreshToken });
-            // else throw err;
-          } else {
-            return axios.get('/api/token').then((response) => {
-              localStorage.setItem('accessToken', response.data.access_token);
-              this.client.defaults.headers.common.Authorization =
-                'Bearer ' + response.data.access_token;
-
-              return Promise.resolve();
-            });
-          }
+          //todo get refresh token
+          // return Promise.resolve();
+          return Promise.reject(err);
         }
         default:
-          return Promise.reject();
+          return Promise.reject(err);
       }
     } else if (err.request) {
       // The request was made but no response was received

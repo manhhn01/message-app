@@ -1,0 +1,47 @@
+a {
+  color: var(--ascent-color) !important;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.form-wrapper-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.form {
+  width: 440px;
+  padding: 16px;
+}
+
+.form-header {
+  margin-bottom: 20px;
+}
+
+.header-description {
+  color: rgb(124, 124, 124);
+}
+
+.background-left {
+  width: 50%;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.has-account {
+  margin-top: 20px;
+  color: rgb(49, 49, 49);
+  text-align: center;
+}

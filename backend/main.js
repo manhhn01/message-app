@@ -20,8 +20,11 @@ app.use((req, res, next) => {
   next();
 });
 
-require('./routes/auth.routes')(app);
-require('./routes/protectedRoutes/index.routes')(app);
+const apiRouter = express.Router();
+require('./routes/auth.routes')(apiRouter);
+require('./routes/protectedRoutes/index.routes')(apiRouter);
+
+app.use('/api', apiRouter);
 
 app.listen(port, () => {
   console.log('Server is running on port ' + port);

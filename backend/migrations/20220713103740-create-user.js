@@ -33,6 +33,12 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    await queryInterface.addIndex('users', {
+      fields: ['email'],
+      name: 'users_email_unique',
+      unique: true,
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
