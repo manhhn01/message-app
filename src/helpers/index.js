@@ -4,7 +4,87 @@ export function shuffle(arr) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+
   return array;
+}
+
+export function debounce(func, ms) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+    }, ms);
+  };
+}
+
+export function getMessageGroups(messages) {
+  return messages.reduce((groups, message) => {
+    if (groups.length > 0) {
+      const lastGroup = groups[groups.length - 1];
+      const lastMessage = lastGroup[lastGroup.length - 1];
+      if (
+        new Date(message.createdAt) - new Date(lastMessage.createdAt) <
+          1000 * 30 &&
+        message.User.id === lastMessage.User.id
+      ) {
+        lastGroup.push(message);
+      } else {
+        groups.push([message]);
+      }
+    } else groups.push([message]);
+
+    return groups;
+  }, []);
+}
+
+export function isValidDate(date) {
+  return date instanceof Date && !isNaN(date.getTime());
+}
+
+export function isYesterday(date, now) {
+  return (
+    now.getFullYear() === date.getFullYear() &&
+    now.getMonth() === date.getMonth() &&
+    now.getDate() - date.getDate() === 1
+  );
+}
+
+export function isSameDay(date1, date2) {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
+export function isSameYear(date1, date2) {
+  return date1.getFullYear() === date2.getFullYear();
+}
+
+export function getDisplayTime(date, compare = false) {
+  if (!isValidDate(date)) return '';
+  const now = new Date();
+  if (isSameDay(date, now)) {
+    return (compare ? 'Hôm nay, ' : '') + getTime(date);
+  } else if (isSameYear(date, now)) {
+    if (compare && isYesterday(date, now)) {
+      return getDate(date);
+    } else return getDate(date);
+  }
+  return date.toLocaleDateString();
+}
+
+export function getTime(date) {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return hours + ':' + (minutes < 10 ? '0' + minutes : minutes);
+}
+
+export function getDate(date) {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  return `${day}/${month}`;
 }
 
 export function registerFormValidator(form, setErrors) {

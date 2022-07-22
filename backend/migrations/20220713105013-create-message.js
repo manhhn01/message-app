@@ -1,6 +1,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('messages', {
+    await queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,27 +10,27 @@ module.exports = {
       message: {
         type: Sequelize.STRING,
       },
-      sender_id: {
+      senderId: {
         type: Sequelize.INTEGER,
       },
-      conversation_id: {
+      conversationId: {
         type: Sequelize.INTEGER,
         reference: {
-          model: 'conversations',
+          model: 'Conversations',
           key: 'id',
         },
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('messages');
+    await queryInterface.dropTable('Messages');
   },
 };

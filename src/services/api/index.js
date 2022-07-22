@@ -37,6 +37,7 @@ export class ApiService {
         case 401: {
           //todo get refresh token
           // return Promise.resolve();
+          localStorage.removeItem('accessToken');
           return Promise.reject(err);
         }
         default:

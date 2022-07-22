@@ -1,4 +1,3 @@
-'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -10,25 +9,26 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.Conversation, {
         through: 'ConversationUser',
-        foreignKey: 'user_id',
-        otherKey: 'conversation_id',
+        foreignKey: 'userId',
+        otherKey: 'conversationId',
       });
     }
   }
   User.init(
     {
-      first_name: DataTypes.STRING,
-      last_name: DataTypes.STRING,
+      firstName: DataTypes.STRING,
+      lastName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      avatar: {
+        type: DataTypes.STRING,
+        defaultValue: '/images/user.jpg',
+      },
     },
     {
       sequelize,
       modelName: 'User',
-      tableName: 'users',
-      underscored: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      tableName: 'Users',
       defaultScope: {
         attributes: {
           exclude: ['password'],

@@ -5,20 +5,21 @@ import './index.css';
 import App from './App';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
-import store from './store'
+import store from './store';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
       <Toaster
-        position="top-right"
+        position="top-center"
         containerStyle={{
           fontSize: '1.125rem',
+          padding: '16px 24px',
         }}
       />
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

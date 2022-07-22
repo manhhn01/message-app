@@ -1,4 +1,4 @@
-const auth = require('../../middlewares/auth');
+const auth = require('../../middleware/auth');
 
 module.exports = (app) => {
   const router = require('express').Router();

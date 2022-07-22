@@ -11,6 +11,17 @@
   flex: 1;
 }
 
+.chat-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: var(--text-gray-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 .chat-content {
   padding: 25px 25px 0 25px;
   flex: 1 1 0;
@@ -29,10 +40,12 @@
   align-items: center;
   margin-bottom: 12px;
   align-self: flex-end;
+  text-align: right;
 }
 
 .received .sender-info {
   align-self: flex-start;
+  text-align: left;
   flex-direction: row-reverse;
 }
 
@@ -54,8 +67,8 @@
 }
 
 .message {
-  padding: 10px 12px;
-  border-radius: 12px;
+  padding: 10px 16px;
+  border-radius: 4px;
   background-color: var(--ascent-color);
   color: rgb(245, 245, 245);
   align-self: flex-end;
@@ -68,19 +81,13 @@
 }
 
 .message:first-child {
-  border-bottom-right-radius: 2px;
-}
-
-.received .message:first-child {
-  border-bottom-left-radius: 2px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
 }
 
 .message:last-child {
-  border-top-right-radius: 2px;
-}
-
-.received .message:last-child {
-  border-top-left-radius: 2px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .message:not(:last-child) {

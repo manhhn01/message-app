@@ -5,7 +5,13 @@ import Button from '../../Button';
 import { AiFillCaretDown, AiFillCaretLeft } from 'react-icons/ai';
 const cx = classNames.bind(styles);
 
-function ConversationGroup({ headerTitle, headerIcon, children }) {
+function ConversationGroup({
+  headerTitle,
+  headerIcon,
+  headerIconStyle = null,
+  maxHeight = false,
+  children,
+}) {
   const [isMinimize, setIsMinimize] = useState(false);
   return (
     <div className={cx('conversation-group', { minimize: isMinimize })}>
@@ -14,14 +20,16 @@ function ConversationGroup({ headerTitle, headerIcon, children }) {
         onClick={() => setIsMinimize((s) => !s)}
       >
         <div className={cx('conversation-group-header-title')}>
-          <div className={cx('icon-wrapper')}>{headerIcon}</div>
+          <div className={cx('icon-wrapper')} style={headerIconStyle}>
+            {headerIcon}
+          </div>
           {headerTitle}
         </div>
-        <Button type='button' className={cx('conversation-group-status-icon')}>
+        <Button type="button" className={cx('conversation-group-status-icon')}>
           {isMinimize ? <AiFillCaretLeft /> : <AiFillCaretDown />}
         </Button>
       </div>
-      <ul className={cx('conversation-group-list')}>{children}</ul>
+      <ul className={cx('conversation-group-list', {'max-height': maxHeight})}>{children}</ul>
     </div>
   );
 }

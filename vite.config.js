@@ -6,6 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': { target: 'http://localhost:5000', changeOrigin: true },
+      '/images': { target: 'http://localhost:5000', changeOrigin: true },
+      '/socket': { target: 'http://localhost:5000', ws: true, changeOrigin: true },
     },
   },
   plugins: [react()],

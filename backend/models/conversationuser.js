@@ -1,4 +1,3 @@
-'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ConversationUser extends Model {
@@ -13,16 +12,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   ConversationUser.init(
     {
-      conversation_id: DataTypes.INTEGER,
-      user_id: DataTypes.INTEGER,
+      conversationId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: 'ConversationUser',
-      tableName: 'conversation_users',
-      underscored: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      tableName: 'ConversationUsers',
     }
   );
   return ConversationUser;

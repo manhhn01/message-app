@@ -11,8 +11,8 @@ module.exports = (req, res, next) => {
 
   jwt.verify(token, 'very_secret', (err, decoded) => {
     if (err) {
-      unauthorizedResponse(res, err);
-      throw err;
+      console.log(err.message);
+      return unauthorizedResponse(res, err);
     }
 
     models.User.findByPk(decoded.id)

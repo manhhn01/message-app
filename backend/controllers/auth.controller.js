@@ -54,15 +54,15 @@ exports.login = async (req, res) => {
 
 exports.register = (req, res) => {
   const {
-    firstName: first_name,
-    lastName: last_name,
+    firstName,
+    lastName,
     email,
     password,
   } = req.body;
 
   models.User.create({
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     email,
     password: bcrypt.hashSync(password, 10),
   })

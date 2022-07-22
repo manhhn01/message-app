@@ -1,0 +1,10 @@
+.drop-down {
+  position: absolute;
+  top: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.15) 0px 4px 12px;
+  border-radius: 4px;
+}

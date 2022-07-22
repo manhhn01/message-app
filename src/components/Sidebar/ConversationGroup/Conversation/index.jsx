@@ -10,9 +10,18 @@ function Conversation({
   conversationTime,
   isOnline = false,
   isUnread = false,
+  isSelected = false,
+  onClick = null,
 }) {
   return (
-    <li className={cx('conversation', { unread: isUnread, online: isOnline })}>
+    <li
+      className={cx('conversation', {
+        unread: isUnread,
+        online: isOnline,
+        selected: isSelected,
+      })}
+      onClick={onClick}
+    >
       <div className={cx('conversation-avatar-wrapper')}>
         <img
           className={cx('conversation-avatar')}

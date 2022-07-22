@@ -12,8 +12,8 @@
 }
 
 .conversation:hover,
-.conversation.active {
-  background-color: rgb(240, 240, 240);
+.conversation.selected {
+  background-color: var(--hover-color);
 }
 
 .conversation-avatar-wrapper {

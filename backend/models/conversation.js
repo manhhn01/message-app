@@ -7,10 +7,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Message, { foreignKey: 'conversation_id' });
+      this.hasMany(models.Message, {
+        foreignKey: 'conversationId',
+      });
       this.belongsToMany(models.User, {
-        foreignKey: 'conversation_id',
-        otherKey: 'user_id',
+        foreignKey: 'conversationId',
+        otherKey: 'userId',
         through: 'ConversationUser',
       });
     }
@@ -18,15 +20,14 @@ module.exports = (sequelize, DataTypes) => {
   Conversation.init(
     {
       name: DataTypes.STRING,
+      slug: DataTypes.STRING,
       avatar: DataTypes.STRING,
+      isPinned: DataTypes.BOOLEAN,
     },
     {
       sequelize,
       modelName: 'Conversation',
-      tableName: 'conversations',
-      underscored: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      tableName: 'Conversations',
     }
   );
   return Conversation;

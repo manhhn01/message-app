@@ -24,6 +24,7 @@ function LoginPage() {
   });
 
   const handleFormSubmit = (event) => {
+    event.preventDefault();
     if (loginFormValidator(loginInfo, setFormErrors)) {
       toast.promise(dispatch(login(loginInfo)).unwrap(), {
         loading: 'Đang đăng nhập...',
@@ -39,7 +40,7 @@ function LoginPage() {
         <LazyImage src="https://source.unsplash.com/random" alt="Messages" />
       </div>
       <div className={cx('form-wrapper-right')}>
-        <div className={cx('form')}>
+        <form className={cx('form')} onSubmit={handleFormSubmit}>
           <div className={cx('form-header')}>
             <h1>Đăng nhập</h1>
             <div className={cx('header-description')}>Chào mừng trở lại!</div>
@@ -72,11 +73,10 @@ function LoginPage() {
           </div>
           <div className={cx('form-group', 'my-25')}>
             <Button
-              type="button"
+              type="submit"
               style={{
                 fontSize: '1.125rem',
               }}
-              onClick={handleFormSubmit}
               buttonStyle="background"
               full
             >
@@ -86,7 +86,7 @@ function LoginPage() {
           <div className={cx('has-account')}>
             Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

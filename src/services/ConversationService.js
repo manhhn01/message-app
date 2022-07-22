@@ -1,28 +1,38 @@
 import { ApiService } from './api';
 
 export class ConversationService extends ApiService {
-  async list() {
+  async getConversations() {
     const response = await this.get('conversations');
-    return response.data;
+    return response;
   }
 
-  async get(id) {
-    const response = await this.get(`conversation/${id}`);
-    return response.data;
+  async getConversation(id) {
+    const response = await this.get(`conversations/${id}`);
+    return response;
   }
 
-  async create(data) {
-    const response = await this.post('conversation', data);
-    return response.data;
+  async createConversation(data) {
+    const response = await this.post('conversations', data);
+    return response;
   }
 
-  async update(id, data) {
-    const response = await this.put(`conversation/${id}`, data);
-    return response.data;
+  async addMember(conversationId, userId) {
+    const response = await this.post(
+      `conversations/${conversationId}/add-user`,
+      {
+        userId,
+      }
+    );
+    return response;
   }
 
-  async delete(id) {
-    const response = await this.delete(`conversation/${id}`);
-    return response.data;
+  // async update(id, data) {
+  //   const response = await this.put(`conversations/${id}`, data);
+  //   return response;
+  // }
+
+  async deleteConversation(id) {
+    const response = await this.delete(`conversations/${id}`);
+    return response;
   }
 }

@@ -1,7 +1,6 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('conversations', {
+    await queryInterface.createTable('Conversations', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,20 +11,33 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      slug: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       avatar: {
         type: Sequelize.STRING,
       },
-      created_at: {
+      isPinned: {
+        type: Sequelize.BOOLEAN,
+      },
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
+
+    await queryInterface.addIndex('Conversations', {
+      fields: ['slug'],
+      name: 'conversations_slug_unique',
+      unique: true,
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('conversations');
+    await queryInterface.dropTable('Conversations');
   },
 };

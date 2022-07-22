@@ -1,0 +1,9 @@
+.drop-down-item {
+  padding: 10px 25px;
+  transition: background-color 350ms ease-in-out;
+  cursor: pointer;
+}
+
+.drop-down-item:hover {
+  background-color: var(--hover-color);
+}

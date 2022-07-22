@@ -1,29 +1,35 @@
-exports.getAll = (req, res) => {
-  // User.findAll()
-  //   .then((users) => {
-  //     res.send(users);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send({
-  //       message: err.message || 'Some error occurred while retrieving users.',
-  //     });
-  //   });
+const {
+  unauthorizedResponse,
+  successResponse,
+} = require('../helpers/response');
+const models = require('../models');
+const Op = require('sequelize').Op;
+
+exports.getUser = (req, res) => {
+  if (req.user) {
+    return res.send(req.user);
+  }
+
+  return unauthorizedResponse(res);
 };
 
-exports.create = (req, res) => {
-  // const bcrypt = require('bcrypt');
-  // User.create({
-  //   firstName: req.body.firstName,
-  //   lastName: req.body.lastName,
-  //   email: req.body.email,
-  //   password: bcrypt.hashSync(req.body.password, 10),
-  // })
-  //   .then((user) => {
-  //     res.send(user);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send({
-  //       message: err.message || 'Some error occurred while creating the user.',
-  //     });
-  //   });
+exports.searchUsers = (req, res) => {
+  console.log(req.query);
+  models.User.findAll({
+    where: {
+      [Op.or]: {
+        firstName: {
+          [Op.like]: `%${req.query.name}%`,
+        },
+        lastName: {
+          [Op.like]: `%${req.query.name}%`,
+        },
+        email: {
+          [Op.like]: `%${req.query.name}%`,
+        },
+      },
+    },
+  }).then((users) => {
+    return successResponse(res, users);
+  });
 };

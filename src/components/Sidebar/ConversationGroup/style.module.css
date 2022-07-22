@@ -1,3 +1,7 @@
+.conversation-group{
+  margin-bottom: 10px;
+}
+
 .conversation-group-header {
   display: flex;
   align-items: center;
@@ -5,7 +9,7 @@
   padding: 5px 20px;
   font-weight: 500;
   color: rgb(100, 100, 100);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   cursor: pointer;
 }
 
@@ -36,10 +40,14 @@
 .conversation-group-list {
   padding: 0;
   list-style: none;
-  transition: max-height 350ms ease-in-out;
+  transition: max-height 350ms ease-in-out, opacity 350ms ease-in-out;
   /* item: 55px+10px */
   max-height: 325px;
   overflow-y: auto;
+}
+
+.conversation-group-list.max-height{
+  max-height: 999px;
 }
 
 /* minimize */

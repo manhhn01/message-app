@@ -33,3 +33,7 @@
   font-weight: 600;
   color: var(--ascent-color);
 }
+
+.btn-color:disabled{
+  color: gray;
+}

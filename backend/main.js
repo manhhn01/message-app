@@ -1,11 +1,20 @@
+const path = require('path');
 const dotenv = require('dotenv');
 const express = require('express');
 const { urlencoded, json } = require('express');
+const { Server } = require('socket.io');
+const errorHandle = require('./middleware/errorHandle');
+
+const app = express();
+const server = require('http').createServer(app);
+const io = new Server(server, {
+  path: '/socket',
+});
+
 dotenv.config({ path: '../.env' });
 
 const port = process.env.SERVER_PORT || 3000;
 
-const app = express();
 app.use((req, res, next) => {
   console.log(req.url);
   next();
@@ -20,12 +29,16 @@ app.use((req, res, next) => {
   next();
 });
 
-const apiRouter = express.Router();
-require('./routes/auth.routes')(apiRouter);
-require('./routes/protectedRoutes/index.routes')(apiRouter);
+app.use(express.static(path.join(__dirname, 'public')));
 
+const apiRouter = express.Router();
+require('./routes')(apiRouter);
 app.use('/api', apiRouter);
 
-app.listen(port, () => {
+app.use(errorHandle);
+
+require('./socket')(io);
+
+server.listen(port, () => {
   console.log('Server is running on port ' + port);
 });
