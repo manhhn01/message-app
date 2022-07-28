@@ -9,8 +9,11 @@ export const dropdownSlice = createSlice({
     setDropdown: (state, action) => {
       state.name = action.payload;
     },
+    toggleDropdown: (state, action) => {
+      state.name = state.name === action.payload ? '' : action.payload;
+    },
   },
 });
 
 export default dropdownSlice.reducer;
-export const { setDropdown } = dropdownSlice.actions;
+export const { setDropdown, toggleDropdown } = dropdownSlice.actions;

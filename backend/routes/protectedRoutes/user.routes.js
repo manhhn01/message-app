@@ -1,9 +1,14 @@
+const express = require('express');
 module.exports = (app) => {
   const userController = require('../../controllers/user.controller');
-  const router = require('express').Router();
+  const usersRouter = express.Router();
+  const userRouter = express.Router();
 
-  router.get('/search', userController.searchUsers);
-  
-  app.use('/users', router);
-  app.get('/user', userController.getUser);
+  userRouter.get('/', userController.getUser);
+  userRouter.patch('/', userController.updateUser);
+
+  usersRouter.get('/search', userController.searchUsers);
+
+  app.use('/users', usersRouter);
+  app.use('/user', userRouter);
 };

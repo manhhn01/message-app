@@ -1,4 +1,5 @@
 import { ApiService } from './api';
+import { ImageService } from './ImageService';
 
 export class UserService extends ApiService {
   async getUser() {
@@ -27,8 +28,27 @@ export class UserService extends ApiService {
     return response;
   }
 
+  async updateUser(data) {
+    if (data.avatar) {
+      const uploadResponse = await new ImageService().upload(data.avatar);
+      data.avatar = uploadResponse.data.url;
+    }
+
+    const updateResponse = await this.patch('user', data);
+    return updateResponse;
+  }
+
+  logout() {
+    this.removeToken();
+  }
+
   saveToken(token) {
     localStorage.setItem('accessToken', token);
     this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+
+  removeToken() {
+    localStorage.removeItem('accessToken');
+    this.client.defaults.headers.common['Authorization'] = null;
   }
 }

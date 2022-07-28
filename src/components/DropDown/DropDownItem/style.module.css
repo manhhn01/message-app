@@ -1,4 +1,7 @@
 .drop-down-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   padding: 10px 25px;
   transition: background-color 350ms ease-in-out;
   cursor: pointer;

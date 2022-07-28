@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const models = require('../../models');
+const lt = require('long-timeout');
 
 module.exports = (socket, next) => {
   const token = socket.handshake.auth.token;
@@ -18,12 +19,17 @@ module.exports = (socket, next) => {
           model: models.Conversation,
         },
       });
-      user.Conversations.forEach((conversation) => {
-        socket.join(conversation.slug);
-        console.log(user.firstName + ' joined ' + conversation.slug);
-      });
 
       socket.data.user = user;
+
+      const expiredIn = (decoded.exp - Date.now() / 1000) * 1000;
+      const timeout = lt.setTimeout(() => {
+        socket.disconnect();
+      }, expiredIn);
+
+      socket.on('disconnect', () => {
+        lt.clearTimeout(timeout);
+      });
 
       next();
     });

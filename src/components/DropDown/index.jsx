@@ -4,18 +4,26 @@ import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
-function DropDown({ children, name }) {
+function DropDown({
+  children,
+  name,
+  caret = false,
+  position = 'bottom-right',
+}) {
   const dropdown = useSelector((state) => state.dropdown);
   return (
     dropdown.name === name && (
-      <ul
-        className={cx('drop-down')}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      >
-        {children}
-      </ul>
+      <>
+        {caret && <div className={cx('caret', position)}></div>}
+        <ul
+          className={cx('drop-down', position)}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          {children}
+        </ul>
+      </>
     )
   );
 }

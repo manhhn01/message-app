@@ -4,7 +4,12 @@ import classNames from 'classnames/bind';
 import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
-function LazyImage({ src = '', contain = false, ...props }) {
+function LazyImage({
+  src = '',
+  contain = false,
+  onImageLoaded = null,
+  ...props
+}) {
   const imageRef = useRef();
   const [loading, setLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
@@ -29,7 +34,7 @@ function LazyImage({ src = '', contain = false, ...props }) {
     return () => observer.disconnect();
   }, [src]);
   return (
-    <div className={cx('image-wrapper')}>
+    <div className={cx('image-wrapper', { loading: !loading })}>
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <img ref={imageRef} className={cx('image', { contain })} {...props} />
       {showOverlay && (
@@ -37,6 +42,7 @@ function LazyImage({ src = '', contain = false, ...props }) {
           className={cx('overlay', { loading })}
           onTransitionEnd={() => {
             setShowOverlay(false);
+            if (onImageLoaded) onImageLoaded();
           }}
         ></div>
       )}

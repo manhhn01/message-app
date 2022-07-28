@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './style.module.css';
 import classNames from 'classnames/bind';
+import { getDisplayMessage } from '../../../../helpers';
+import conversationImage from '../../../../images/conversation.png';
 const cx = classNames.bind(styles);
 
 function Conversation({
@@ -25,7 +27,7 @@ function Conversation({
       <div className={cx('conversation-avatar-wrapper')}>
         <img
           className={cx('conversation-avatar')}
-          src={avatar}
+          src={avatar || conversationImage}
           alt={conversationName}
         />
       </div>
@@ -34,7 +36,7 @@ function Conversation({
           <span>{conversationName}</span>
         </div>
         <div className={cx('conversation-message')}>
-          <span>{conversationMessage}</span>
+          <span>{getDisplayMessage(conversationMessage)}</span>
         </div>
       </div>
       <div className={cx('conversation-time')}>

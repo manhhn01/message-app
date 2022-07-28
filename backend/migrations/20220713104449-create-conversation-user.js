@@ -13,6 +13,7 @@ module.exports = {
           model: 'Conversations',
           key: 'id',
         },
+        onDelete: 'cascade',
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -20,6 +21,19 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'cascade',
+      },
+      isPinned: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      isSilent: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      isUnread: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

@@ -8,8 +8,10 @@ const errorHandle = require('./middleware/errorHandle');
 const app = express();
 const server = require('http').createServer(app);
 const io = new Server(server, {
-  path: '/socket',
+  path: '/api/socket',
 });
+
+require('./socket')(io);
 
 dotenv.config({ path: '../.env' });
 
@@ -29,15 +31,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
-
 const apiRouter = express.Router();
-require('./routes')(apiRouter);
+require('./routes')(apiRouter, io);
 app.use('/api', apiRouter);
 
 app.use(errorHandle);
-
-require('./socket')(io);
 
 server.listen(port, () => {
   console.log('Server is running on port ' + port);

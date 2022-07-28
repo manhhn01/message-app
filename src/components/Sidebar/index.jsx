@@ -9,6 +9,7 @@ import Loading from '../Loading';
 import styles from './style.module.css';
 import { fetchConversation } from '../../slices/conversationSlice';
 import { getDisplayTime } from '../../helpers';
+import SettingButton from './SettingButton';
 
 const cx = classNames.bind(styles);
 
@@ -51,7 +52,11 @@ function Sidebar() {
                   <Conversation
                     avatar={conversationItem.avatar}
                     conversationName={conversationItem.name}
-                    conversationMessage={conversationItem.Messages[0]?.message}
+                    conversationMessage={
+                      conversationItem.Messages[0]?.isImage
+                        ? 'Hình ảnh'
+                        : conversationItem.Messages[0]?.message
+                    }
                     conversationTime={getDisplayTime(
                       new Date(conversationItem.Messages[0]?.createdAt)
                     )}
@@ -77,7 +82,11 @@ function Sidebar() {
                 <Conversation
                   avatar={conversationItem.avatar}
                   conversationName={conversationItem.name}
-                  conversationMessage={conversationItem.Messages[0]?.message}
+                  conversationMessage={
+                    conversationItem.Messages[0]?.isImage
+                      ? 'Hình ảnh'
+                      : conversationItem.Messages[0]?.message
+                  }
                   conversationTime={getDisplayTime(
                     new Date(conversationItem.Messages[0]?.createdAt)
                   )}
@@ -92,6 +101,9 @@ function Sidebar() {
             </ConversationGroup>
           </>
         )}
+      </div>
+      <div className={cx('sidebar-footer')}>
+        <SettingButton />
       </div>
     </div>
   );

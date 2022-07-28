@@ -16,7 +16,6 @@ export const fetchConversation = createAsyncThunk(
         return data;
       }
     } catch (err) {
-      console.log(err);
       throw thunkAPI.rejectWithValue(err?.response?.data);
     }
   }
@@ -30,6 +29,19 @@ export const createConversation = createAsyncThunk(
         await new ConversationService().createConversation(data);
       await thunkAPI.dispatch(fetchConversations()).unwrap();
       return responseData;
+    } catch (err) {
+      throw thunkAPI.rejectWithValue(err?.response?.data);
+    }
+  }
+);
+
+export const removeConversation = createAsyncThunk(
+  'conversation/removeConversation',
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await new ConversationService().removeConversation(id);
+      await thunkAPI.dispatch(fetchConversations()).unwrap();
+      return data;
     } catch (err) {
       throw thunkAPI.rejectWithValue(err?.response?.data);
     }
@@ -52,6 +64,41 @@ export const addMember = createAsyncThunk(
   }
 );
 
+export const removeMember = createAsyncThunk(
+  'conversation/removeMember',
+  async ({ conversationId, userId }, thunkAPI) => {
+    try {
+      console.log('removeMember', conversationId, userId);
+      const { data } = await new ConversationService().removeMember(
+        conversationId,
+        userId
+      );
+      thunkAPI.dispatch(fetchConversation());
+      return data;
+    } catch (err) {
+      throw thunkAPI.rejectWithValue(err?.response?.data);
+    }
+  }
+);
+
+export const updateConversation = createAsyncThunk(
+  'conversation/updateConversation',
+  async ({ conversationId, data }, thunkAPI) => {
+    try {
+      const { data: responseData } =
+        await new ConversationService().updateConversation(
+          conversationId,
+          data
+        );
+      thunkAPI.dispatch(fetchConversation());
+      thunkAPI.dispatch(fetchConversations());
+      return responseData;
+    } catch (err) {
+      throw thunkAPI.rejectWithValue(err?.response?.data);
+    }
+  }
+);
+
 export const conversationSlice = createSlice({
   name: 'conversation',
   initialState: {
@@ -62,6 +109,7 @@ export const conversationSlice = createSlice({
     avatar: '',
     Messages: [],
     Users: [],
+    Creator: null,
     newConversation: false,
     newMember: false,
   },
@@ -88,6 +136,7 @@ export const conversationSlice = createSlice({
       state.Messages = action.payload.Messages;
       state.Users = action.payload.Users;
       state.status = 'fulfilled';
+      state.Creator = action.payload.Creator;
       state.newConversation = false;
     });
 
@@ -98,11 +147,25 @@ export const conversationSlice = createSlice({
       state.avatar = action.payload.avatar;
       state.Messages = action.payload.Messages;
       state.Users = action.payload.Users;
+      state.Creator = action.payload.Creator;
       state.status = 'fulfilled';
       state.newConversation = false;
     });
 
     builder.addCase(addMember.fulfilled, (state, action) => {
+      state.newMember = false;
+    });
+
+    builder.addCase(removeConversation.fulfilled, (state, action) => {
+      state.id = '';
+      state.name = '';
+      state.slug = '';
+      state.avatar = '';
+      state.Messages = [];
+      state.Users = [];
+      state.Creator = null;
+      state.status = 'fulfilled';
+      state.newConversation = false;
       state.newMember = false;
     });
   },

@@ -1,0 +1,9 @@
+.setting-btn {
+  cursor: pointer;
+  position: relative;
+}
+
+.user-setting-icon {
+  font-size: 0.875rem;
+  margin-right: 10px;
+}

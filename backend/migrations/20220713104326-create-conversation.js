@@ -18,8 +18,8 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
-      isPinned: {
-        type: Sequelize.BOOLEAN,
+      creatorId: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

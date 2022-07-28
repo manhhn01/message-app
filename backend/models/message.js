@@ -12,12 +12,16 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsTo(models.Conversation, {
         foreignKey: 'conversationId',
-      })
+      });
     }
   }
   Message.init(
     {
       message: DataTypes.STRING,
+      isImage: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
       senderId: DataTypes.INTEGER,
       conversationId: DataTypes.INTEGER,
     },

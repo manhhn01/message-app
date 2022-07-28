@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
-import { AiFillSetting, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import userAvatar from '../../../images/user.png';
 import { newConversation } from '../../../slices/conversationSlice';
 import Button from '../../Button';
+import SettingButton from '../SettingButton';
 import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
@@ -12,7 +14,13 @@ function Header() {
   return (
     <div className={cx('sidebar-header')}>
       <div className={cx('sidebar-header-left')}>
-        <img className={cx('user-avatar')} src={user.avatar} alt="user" />
+        <div className={cx('user-avatar-wrapper')}>
+          <img
+            className={cx('user-avatar')}
+            src={user.avatar || userAvatar}
+            alt="user"
+          />
+        </div>
         <div
           className={cx('user-name')}
         >{`${user.lastName} ${user.firstName}`}</div>
@@ -28,13 +36,7 @@ function Header() {
         >
           <AiOutlinePlus />
         </Button>
-        <Button
-          type="button"
-          buttonStyle="rounded"
-          className={cx('header-btn')}
-        >
-          <AiFillSetting />
-        </Button>
+        <SettingButton className={cx('setting-btn')} />
       </div>
     </div>
   );

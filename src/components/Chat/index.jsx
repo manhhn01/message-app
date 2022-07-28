@@ -1,29 +1,42 @@
 import classNames from 'classnames/bind';
-import { useContext, useRef, useState } from 'react';
-import { AiFillLike, AiOutlineSend, AiOutlineSmile } from 'react-icons/ai';
-import Button from '../Button';
-import Header from './Header';
-import styles from './style.module.css';
-import { useSelector } from 'react-redux';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
+  AiFillLike,
+  AiOutlinePicture,
+  AiOutlineSend,
+  AiOutlineSmile,
+} from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { SocketContext } from '../../App';
+import {
+  getDisplayMessage,
   getDisplayTime,
   getMessageGroups,
-  getTime,
-  isSameDay,
 } from '../../helpers';
-import { SocketContext } from '../../App';
-import { useEffect } from 'react';
+import userAvatar from '../../images/user.png';
+import { ImageService } from '../../services/ImageService';
+import { toggleDropdown } from '../../slices/dropdownSlice';
+import Button from '../Button';
+import EmojiPicker from '../EmojiPicker';
+import LazyImage from '../LazyImage';
+import Header from './Header';
+import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
 function Chat() {
+  const dispatch = useDispatch();
+
   const chatContentRef = useRef(null);
+  const chatImageInputRef = useRef(null);
   const socketService = useContext(SocketContext);
   const auth = useSelector((state) => state.auth);
   const conversation = useSelector((state) => state.conversation);
   const [message, setMessage] = useState('');
 
-  const handleMessageSend = () => {
-    socketService.sendMessage(message, conversation.id);
+  const handleMessageSend = (customMessage) => {
+    if (customMessage) {
+      socketService.sendMessage(customMessage, conversation.id);
+    } else socketService.sendMessage(message, conversation.id);
     setMessage('');
   };
 
@@ -31,14 +44,19 @@ function Chat() {
     if (conversation.id && chatContentRef.current) {
       chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
     }
-  }, [conversation.id, conversation.Messages]);
+  }, [
+    conversation.newConversation,
+    conversation.newMember,
+    conversation.id,
+    conversation.Messages,
+  ]);
 
   return (
     <div className={cx('chat')}>
       <Header />
       {!conversation.newConversation &&
         (conversation.id ? (
-          conversation.Users.length > 1 ? (
+          conversation.Users.length > 1 || conversation.Messages.length > 0 ? (
             <div className={cx('chat-main')}>
               <div className={cx('chat-content')} ref={chatContentRef}>
                 {getMessageGroups(conversation.Messages).map(
@@ -63,16 +81,35 @@ function Chat() {
                         </div>
                         <img
                           className={cx('sender-avatar')}
-                          src={messageGroup[0]?.User?.avatar}
-                          alt=""
+                          src={messageGroup[0]?.User?.avatar || userAvatar}
+                          alt={
+                            messageGroup[0]?.User?.firstName +
+                            ' ' +
+                            messageGroup[0]?.User?.lastName
+                          }
                         />
                       </div>
                       <div className={cx('messages')}>
-                        {messageGroup.map((message) => (
-                          <div className={cx('message')} key={message.id}>
-                            {message.message}
-                          </div>
-                        ))}
+                        {messageGroup.map((message) =>
+                          message.isImage ? (
+                            <div
+                              className={cx('message', 'message-image-wrapper')}
+                            >
+                              <LazyImage
+                                className={cx('message-image')}
+                                src={message.message}
+                                alt={message.message}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              className={cx('message', 'message-text')}
+                              key={message.id}
+                            >
+                              {getDisplayMessage(message.message)}
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
                   )
@@ -80,8 +117,44 @@ function Chat() {
               </div>
               <div className={cx('chat-input-wrapper')}>
                 <div className={cx('chat-input')}>
-                  <Button type="button" className={cx('emoji-btn')}>
+                  <Button
+                    type="button"
+                    className={cx('emoji-btn')}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      dispatch(toggleDropdown('emoji'));
+                    }}
+                  >
                     <AiOutlineSmile />
+                    <EmojiPicker
+                      onEmojiSelected={(emoji) => setMessage((s) => s + emoji)}
+                    />
+                  </Button>
+                  <Button
+                    type="button"
+                    className={cx('image-btn')}
+                    onClick={(event) => {
+                      chatImageInputRef.current.click();
+                    }}
+                  >
+                    <AiOutlinePicture />
+                    <input
+                      ref={chatImageInputRef}
+                      type="file"
+                      name="chatImageInput"
+                      className={cx('chat-image-input')}
+                      onChange={(event) => {
+                        new ImageService()
+                          .upload(event.target.files[0])
+                          .then((response) => {
+                            socketService.sendMessage(
+                              response.data.url,
+                              conversation.id,
+                              true
+                            );
+                          });
+                      }}
+                    />
                   </Button>
                   <input
                     type="text"
@@ -90,7 +163,7 @@ function Chat() {
                       setMessage(target.value.toString().trimStart())
                     }
                     onKeyDown={({ key }) => {
-                      if (key === 'Enter') {
+                      if (key === 'Enter' && message.length > 0) {
                         handleMessageSend();
                       }
                     }}
@@ -105,7 +178,13 @@ function Chat() {
                       <AiOutlineSend />
                     </Button>
                   ) : (
-                    <Button type="button" className={cx('send-btn')}>
+                    <Button
+                      type="button"
+                      className={cx('send-btn')}
+                      onClick={() => {
+                        handleMessageSend('👍');
+                      }}
+                    >
                       <AiFillLike />
                     </Button>
                   )}

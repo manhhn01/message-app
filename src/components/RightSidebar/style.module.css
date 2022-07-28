@@ -1,0 +1,94 @@
+.sidebar {
+  width: 300px;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar-top {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.conversation-avatar-wrapper {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 5px;
+}
+
+.conversation-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.conversation-name {
+  text-align: center;
+  font-weight: 600;
+}
+
+.conversation-option-list {
+  list-style-type: none;
+}
+
+.conversation-member-item,
+.conversation-option-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  transition: background-color 350ms ease-in-out;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.conversation-option-item.danger {
+  color: rgb(140, 21, 27);
+}
+
+.conversation-option-icon {
+  margin-right: 10px;
+  font-size: 0.75rem;
+}
+
+.conversation-avatar-input {
+  display: none;
+}
+
+.conversation-avatar-input + span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.conversation-member-item:hover,
+.conversation-option-item:hover {
+  background-color: var(--hover-color);
+}
+
+.conversation-member-title {
+  text-align: center;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.conversation-member-item {
+  position: relative;
+  justify-content: space-between;
+  cursor: default;
+}
+
+.conversation-member-item .member-option-btn {
+  opacity: 0;
+  transition: opacity 350ms ease-in-out;
+  cursor: pointer;
+}
+
+.conversation-member-item:hover .member-option-btn {
+  opacity: 1;
+}

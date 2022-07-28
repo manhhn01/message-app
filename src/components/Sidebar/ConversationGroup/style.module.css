@@ -1,11 +1,11 @@
-.conversation-group{
+.conversation-group {
   margin-bottom: 10px;
 }
 
 .conversation-group-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 5px 20px;
   font-weight: 500;
   color: rgb(100, 100, 100);
@@ -19,7 +19,12 @@
   align-items: center;
 }
 
-.conversation-group-status-icon {
+.conversation-group-header-title > span {
+  display: none;
+}
+
+.conversation-group-caret {
+  display: none;
   color: rgb(204, 204, 204);
 }
 
@@ -34,7 +39,6 @@
   color: white;
   background-color: #dc9644;
   padding: 6px;
-  margin-right: 10px;
 }
 
 .conversation-group-list {
@@ -46,7 +50,7 @@
   overflow-y: auto;
 }
 
-.conversation-group-list.max-height{
+.conversation-group-list.max-height {
   max-height: 999px;
 }
 
@@ -55,4 +59,22 @@
   max-height: 0;
   opacity: 0;
   overflow-y: hidden;
+}
+
+@media screen and (min-width: 1280px) {
+  .conversation-group-header {
+    justify-content: space-between;
+  }
+
+  .conversation-group-header-title > .icon-wrapper {
+    margin-right: 10px;
+  }
+
+  .conversation-group-header-title > span {
+    display: inline;
+  }
+
+  .conversation-group-caret {
+    display: inline;
+  }
 }

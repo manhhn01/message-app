@@ -25,9 +25,34 @@ export class ApiService {
   post(url, data, config, ...args) {
     return this.client.post(url, data, config, ...args).catch((err) =>
       this.handleRequestError(err).then(() => {
-        return this.get(url, config, ...args);
+        return this.post(url, data, config, ...args);
       })
     );
+  }
+
+  patch(url, data, config, ...args) {
+    return this.client.patch(url, data, config, ...args).catch((err) =>
+      this.handleRequestError(err).then(() => {
+        return this.patch(url, data, config, ...args);
+      })
+    );
+  }
+
+  delete(url, data, config, ...args) {
+    return this.client
+      .delete(
+        url,
+        {
+          data,
+          ...config,
+        },
+        ...args
+      )
+      .catch((err) =>
+        this.handleRequestError(err).then(() => {
+          return this.delete(url, { data, ...config }, ...args);
+        })
+      );
   }
 
   handleRequestError(err) {
@@ -36,7 +61,6 @@ export class ApiService {
       switch (err.response.status) {
         case 401: {
           //todo get refresh token
-          // return Promise.resolve();
           localStorage.removeItem('accessToken');
           return Promise.reject(err);
         }

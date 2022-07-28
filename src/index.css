@@ -4,6 +4,36 @@
   --text-gray-color: #646464;
 }
 
+::-webkit-scrollbar{
+  width: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track{
+background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #bcbcbc;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background-color: #808080;
+}
+
+::-webkit-scrollbar-thumb:active{
+  background-color: #bcbcbc;
+}
+
+::-webkit-scrollbar-corner{
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-button{
+  background-color: transparent;
+}
+
 *,
 *::before,
 *::after {
@@ -75,4 +105,13 @@ a:visited {
 .my-25 {
   margin-top: 25px !important;
   margin-bottom: 25px !important;
+}
+
+.separator {
+  margin: 4px 6px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.form-group {
+  margin-bottom: 12px;
 }

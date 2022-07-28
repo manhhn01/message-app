@@ -3,18 +3,27 @@ import { io } from 'socket.io-client';
 export class SocketService {
   constructor() {
     this.io = io({
-      path: '/socket',
+      path: '/api/socket',
       auth: {
         token: localStorage.getItem('accessToken'),
       },
     });
   }
 
-  sendMessage(message, conversationId) {
+  addToRoom(conversationId, userId) {
+    this.io.emit('join', { conversationId, userId });
+  }
+
+  sendMessage(message, conversationId, isImage) {
     this.io.emit('message', {
       message,
       conversationId,
+      isImage,
     });
+  }
+
+  setOnJoinConversationListener(listener) {
+    this.io.on('join', listener);
   }
 
   setOnMessageListener(listener) {

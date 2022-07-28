@@ -15,6 +15,9 @@ exports.notCreatedResponse = (res, err) => {
 exports.unauthorizedResponse = (res, err) => {
   res.status(401).json({ message: err?.message || 'Unauthorized.' });
 };
+exports.forbiddenResponse = (res, err) => {
+  res.status(403).json({ message: err?.message || 'Forbidden.' });
+};
 exports.serverErrorResponse = (res, err) => {
   res.status(500).json({ message: err?.message || 'Server error.' });
 };

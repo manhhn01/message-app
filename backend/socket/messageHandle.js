@@ -1,17 +1,18 @@
 const models = require('../models');
 module.exports = (io, socket) => {
-  socket.on('message', async (message) => {
+  socket.on('message', async (data) => {
     const { user } = socket.data;
-    console.log(message, user.id);
+    console.log(data, user.id);
     const conversation = await models.Conversation.findOne({
       where: {
-        id: message.conversationId,
+        id: data.conversationId,
       },
     });
 
     const newMessage = await conversation.createMessage({
-      message: message.message,
+      message: data.message,
       senderId: user.id,
+      isImage: data.isImage,
     });
     newMessage.setDataValue('User', await newMessage.getUser());
     newMessage.setDataValue('Conversation', await newMessage.getConversation());

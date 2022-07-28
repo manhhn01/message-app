@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       conversationId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
+      isPinned: DataTypes.BOOLEAN,
+      isSilent: DataTypes.BOOLEAN,
+      isUnread: DataTypes.BOOLEAN,
     },
     {
       sequelize,

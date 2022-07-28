@@ -10,6 +10,9 @@ module.exports = {
       message: {
         type: Sequelize.STRING,
       },
+      isImage: {
+        type: Sequelize.BOOLEAN,
+      },
       senderId: {
         type: Sequelize.INTEGER,
       },

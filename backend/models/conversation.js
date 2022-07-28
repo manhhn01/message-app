@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: 'userId',
         through: 'ConversationUser',
       });
+      this.belongsTo(models.User, {
+        foreignKey: 'creatorId',
+        as: 'Creator',
+      });
     }
   }
   Conversation.init(
@@ -22,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       slug: DataTypes.STRING,
       avatar: DataTypes.STRING,
-      isPinned: DataTypes.BOOLEAN,
+      creatorId: DataTypes.INTEGER,
     },
     {
       sequelize,

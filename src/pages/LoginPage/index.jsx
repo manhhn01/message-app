@@ -37,7 +37,10 @@ function LoginPage() {
   return (
     <div className={cx('app')}>
       <div className={cx('background-left')}>
-        <LazyImage src="https://source.unsplash.com/random" alt="Messages" />
+        <LazyImage
+          src="https://source.unsplash.com/random/?city,night,animal"
+          alt="Messages"
+        />
       </div>
       <div className={cx('form-wrapper-right')}>
         <form className={cx('form')} onSubmit={handleFormSubmit}>
@@ -48,8 +51,10 @@ function LoginPage() {
           <div className={cx('form-group')}>
             <Input
               placeholder="Nhập email của bạn"
+              name="email"
               label="Email"
               value={loginInfo.email}
+              autoComplete="on"
               onChange={({ target }) => {
                 setLoginInfo((s) => ({ ...s, email: target.value }));
                 setFormErrors((s) => ({ ...s, email: '' }));
@@ -61,13 +66,14 @@ function LoginPage() {
             <Input
               placeholder="Nhập mật khẩu của bạn"
               type="password"
+              name="password"
               label="Mật khẩu"
               value={loginInfo.password}
               onChange={({ target }) => {
                 setLoginInfo((s) => ({ ...s, password: target.value }));
                 setFormErrors((s) => ({ ...s, password: '' }));
               }}
-              autoComplete="new-password"
+              autoComplete="on"
               error={formErrors.password}
             />
           </div>

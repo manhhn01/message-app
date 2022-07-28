@@ -23,13 +23,17 @@ function ConversationGroup({
           <div className={cx('icon-wrapper')} style={headerIconStyle}>
             {headerIcon}
           </div>
-          {headerTitle}
+          <span>{headerTitle}</span>
         </div>
-        <Button type="button" className={cx('conversation-group-status-icon')}>
+        <Button type="button" className={cx('conversation-group-caret')}>
           {isMinimize ? <AiFillCaretLeft /> : <AiFillCaretDown />}
         </Button>
       </div>
-      <ul className={cx('conversation-group-list', {'max-height': maxHeight})}>{children}</ul>
+      <ul
+        className={cx('conversation-group-list', { 'max-height': maxHeight })}
+      >
+        {children}
+      </ul>
     </div>
   );
 }

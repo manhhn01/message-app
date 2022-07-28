@@ -1,10 +1,32 @@
 .drop-down {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 12px);
   list-style-type: none;
   display: flex;
   flex-direction: column;
   background-color: white;
-  box-shadow: rgba(149, 157, 165, 0.15) 0px 4px 12px;
+  box-shadow: rgba(149, 157, 165, 0.3) 0px 4px 12px 4px;
   border-radius: 4px;
+  width: max-content;
+  color: black;
+  z-index: 10;
+}
+
+.bottom-right {
+  left: 0;
+}
+
+.bottom-left {
+  right: 0;
+}
+
+.caret {
+  top: calc(100% + 5px);
+  position: absolute;
+  border-bottom: 7px solid rgb(255, 255, 255);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 11;
 }

@@ -1,20 +1,20 @@
 import classNames from 'classnames/bind';
-import { useMemo, useRef } from 'react';
-import { useEffect } from 'react';
-import { useCallback, useState } from 'react';
-import { AiFillPhone } from 'react-icons/ai';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
-import { FaUserPlus, FaVideo } from 'react-icons/fa';
+import { FaUserPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { SocketContext } from '../../../App';
 import { debounce } from '../../../helpers';
+import userAvatar from '../../../images/user.png';
 import { UserService } from '../../../services/UserService';
 import {
   addMember,
   createConversation,
   newConversation,
-  newMember,
+  newMember
 } from '../../../slices/conversationSlice';
 import { setDropdown } from '../../../slices/dropdownSlice';
+import { toggleRightSidebar } from '../../../slices/sidebarSlice';
 import Button from '../../Button';
 import DropDown from '../../DropDown';
 import DropDownItem from '../../DropDown/DropDownItem';
@@ -23,8 +23,10 @@ import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
 function Header() {
-  const conversation = useSelector((state) => state.conversation);
   const dispatch = useDispatch();
+  const conversation = useSelector((state) => state.conversation);
+
+  const socketService = useContext(SocketContext);
 
   const [newConversationName, setNewConversationName] = useState('');
   const [newMemberName, setNewMemberName] = useState('');
@@ -59,6 +61,10 @@ function Header() {
   useEffect(() => {
     setNewMemberName('');
   }, [conversation.newMember, selectedUser]);
+
+  useEffect(() => {
+    setSelectedUser(null);
+  }, [conversation.newMember]);
 
   useEffect(() => {
     dispatch(setDropdown(''));
@@ -113,7 +119,7 @@ function Header() {
               {selectedUser ? (
                 <div className={cx('selected-user')}>
                   <img
-                    src={selectedUser.avatar}
+                    src={selectedUser.avatar || userAvatar}
                     alt={`${selectedUser.lastName} ${selectedUser.firstName}`}
                   />
                   <div className={cx('right')}>
@@ -152,7 +158,7 @@ function Header() {
                       <div className={cx('suggested-avatar-wrapper')}>
                         <LazyImage
                           className={cx('suggested-avatar')}
-                          src={user.avatar}
+                          src={user.avatar || userAvatar}
                           alt={user.lastName + ' ' + user.firstName}
                         />
                       </div>
@@ -173,14 +179,14 @@ function Header() {
               type="button"
               className={cx('create-btn')}
               buttonStyle="color"
-              onClick={() =>
+              onClick={() => {
                 dispatch(
                   addMember({
                     conversationId: conversation.id,
                     userId: selectedUser.id,
                   })
-                )
-              }
+                );
+              }}
               disabled={selectedUser === null}
             >
               Thêm
@@ -212,7 +218,7 @@ function Header() {
               >
                 <FaUserPlus />
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 buttonStyle="rounded"
                 className={cx('header-btn')}
@@ -225,11 +231,12 @@ function Header() {
                 className={cx('header-btn')}
               >
                 <FaVideo />
-              </Button>
+              </Button> */}
               <Button
                 type="button"
                 buttonStyle="rounded"
                 className={cx('header-btn')}
+                onClick={() => dispatch(toggleRightSidebar())}
               >
                 <BsThreeDots />
               </Button>

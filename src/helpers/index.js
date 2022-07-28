@@ -1,3 +1,5 @@
+import { logout } from '../slices/authSlice';
+
 export function shuffle(arr) {
   const array = [...arr];
   for (let i = array.length - 1; i > 0; i--) {
@@ -69,7 +71,7 @@ export function getDisplayTime(date, compare = false) {
     return (compare ? 'Hôm nay, ' : '') + getTime(date);
   } else if (isSameYear(date, now)) {
     if (compare && isYesterday(date, now)) {
-      return getDate(date);
+      return 'Hôm qua, ' + getTime(date);
     } else return getDate(date);
   }
   return date.toLocaleDateString();
@@ -85,6 +87,29 @@ export function getDate(date) {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   return `${day}/${month}`;
+}
+
+//convert to emoji
+export function getDisplayMessage(message) {
+  if (message)
+    return message
+      .replace(':D', '😀')
+      .replace(':)', '😊')
+      .replace(':(', '😢')
+      .replace('(:', '🙃')
+      .replace('(y)', '👍')
+      .replace('(n)', '👎')
+      .replace('(ok)', '👌')
+      .replace('8)', '😈')
+      .replace(':*', '😘')
+      .replace(":'(", '😢')
+      .replace('<3', '❤️')
+      .replace(':|', '😐')
+      .replace(':o', '😮')
+      .replace(':P', '😛')
+      .replace(';)', '😉')
+      .replace('<(")', '🐧');
+  return message;
 }
 
 export function registerFormValidator(form, setErrors) {
@@ -151,6 +176,37 @@ export function loginFormValidator(form, setErrors) {
     setErrors((e) => ({ ...e, password: 'Vui lòng nhập mật khẩu' }));
     valid = false;
   }
+
+  return valid;
+}
+
+export function updateUserFormValidator(form, setErrors) {
+  let valid = true;
+  const { firstName, lastName } = form;
+
+  if (firstName !== undefined)
+    if (firstName.trim().length <= 0) {
+      setErrors((e) => ({ ...e, firstName: 'Vui lòng nhập tên' }));
+      valid = false;
+    } else if (firstName.trim().length < 3) {
+      setErrors((e) => ({
+        ...e,
+        firstName: 'Tên phải có ít nhất 3 ký tự',
+      }));
+      valid = false;
+    }
+
+  if (lastName !== undefined)
+    if (lastName.trim().length <= 0) {
+      setErrors((e) => ({ ...e, lastName: 'Vui lòng nhập họ' }));
+      valid = false;
+    } else if (lastName.trim().length < 3) {
+      setErrors((e) => ({
+        ...e,
+        lastName: 'Họ phải có ít nhất 3 ký tự',
+      }));
+      valid = false;
+    }
 
   return valid;
 }

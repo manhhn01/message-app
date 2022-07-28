@@ -147,7 +147,7 @@ function RegisterPage() {
         </div>
       </div>
       <div className={cx('background-right')}>
-        <LazyImage src="https://source.unsplash.com/random" alt="Messages" />
+        <LazyImage src="https://source.unsplash.com/random/?city,night,animal" alt="Messages" />
       </div>
     </div>
   );
