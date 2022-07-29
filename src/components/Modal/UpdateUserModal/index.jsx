@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import Modal from '../../../Modal';
-import styles from './style.module.css';
 import classNames from 'classnames/bind';
-import { useDispatch, useSelector } from 'react-redux';
-import Input from '../../../Input';
-import Button from '../../../Button';
-import { updateUserFormValidator } from '../../../../helpers';
-import { UserService } from '../../../../services/UserService';
+import React, { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { updateUser } from '../../../../slices/authSlice';
-import userAvatar from '../../../../images/user.png';
-import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserFormValidator } from '../../../helpers';
+import userAvatar from '../../../images/user.png';
+import { updateUser } from '../../../slices/authSlice';
+import Button from '../../Button';
+import Input from '../../Input';
+import BaseModal from '../BaseModal';
+import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
-function UpdateInfoModal() {
+function UpdateUserModal() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
@@ -58,7 +56,7 @@ function UpdateInfoModal() {
   };
 
   return (
-    <Modal name="update-user" title="Cập nhật thông tin">
+    <BaseModal title="Cập nhật thông tin người dùng" className={cx('modal')}>
       <form className={cx('update-user-form')} onSubmit={handleFormSubmit}>
         <div className="form-group">
           <div
@@ -134,8 +132,8 @@ function UpdateInfoModal() {
           Lưu
         </Button>
       </form>
-    </Modal>
+    </BaseModal>
   );
 }
 
-export default UpdateInfoModal;
+export default UpdateUserModal;

@@ -8,7 +8,10 @@ export const fetchConversations = createAsyncThunk(
       const { data } = await new ConversationService().getConversations();
       return data;
     } catch (err) {
-      throw thunkAPI.rejectWithValue(err?.response?.data);
+      throw thunkAPI.rejectWithValue({
+        status: err?.response?.status,
+        message: err?.response?.data,
+      });
     }
   }
 );

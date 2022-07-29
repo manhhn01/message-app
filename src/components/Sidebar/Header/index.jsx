@@ -36,7 +36,10 @@ function Header() {
         >
           <AiOutlinePlus />
         </Button>
-        <SettingButton className={cx('setting-btn')} />
+        <SettingButton
+          className={cx('setting-btn')}
+          dropdownPosition="bottom-left"
+        />
       </div>
     </div>
   );

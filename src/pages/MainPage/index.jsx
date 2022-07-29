@@ -17,9 +17,6 @@ function DefaultLayout() {
       <Sidebar />
       <Chat />
       {sidebar.right && <RightSidebar />}
-      <Modal title={'test'}>
-        This is modal content
-      </Modal>
     </div>
   );
 }

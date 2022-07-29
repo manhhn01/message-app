@@ -6,13 +6,14 @@ import App from './App';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import store from './store';
+import Modal from './components/Modal';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+      <Modal />
       <Toaster
         position="top-center"
         containerStyle={{
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           padding: '16px 24px',
         }}
       />
-    </BrowserRouter>
+    </Provider>
+  </BrowserRouter>
   // </React.StrictMode>
 );

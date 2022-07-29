@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Modal from '../../Modal';
 import styles from './style.module.css';
 import classNames from 'classnames/bind';
 import Input from '../../Input';
@@ -8,6 +7,7 @@ import Button from '../../Button';
 import { updateConversation } from '../../../slices/conversationSlice';
 import { setModal } from '../../../slices/modalSlice';
 import toast from 'react-hot-toast';
+import BaseModal from '../BaseModal';
 const cx = classNames.bind(styles);
 
 function UpdateConversationNameModal() {
@@ -37,7 +37,7 @@ function UpdateConversationNameModal() {
   };
 
   return (
-    <Modal name="update-conversation-name" title="Cập nhật tên đoạn hội thoại">
+    <BaseModal name="update-conversation-name" title="Cập nhật tên đoạn hội thoại">
       <form
         className={cx('update-conversation-name-form')}
         onSubmit={handleFormSubmit}
@@ -57,7 +57,7 @@ function UpdateConversationNameModal() {
           Lưu
         </Button>
       </form>
-    </Modal>
+    </BaseModal>
   );
 }
 

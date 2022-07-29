@@ -45,9 +45,8 @@
   padding: 0;
   list-style: none;
   transition: max-height 350ms ease-in-out, opacity 350ms ease-in-out;
+  overflow: hidden;
   /* item: 55px+10px */
-  max-height: 325px;
-  overflow-y: auto;
 }
 
 .conversation-group-list.max-height {

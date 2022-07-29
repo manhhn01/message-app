@@ -92,3 +92,7 @@
 .conversation-member-item:hover .member-option-btn {
   opacity: 1;
 }
+
+.conversation-member-item .remove-member-btn {
+  color: rgb(140, 21, 27);
+}

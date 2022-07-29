@@ -1,10 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, applyMiddleware, getDefaultMiddleware } from '@reduxjs/toolkit';
+import auth from './middleware/authMiddleware';
 import authReducer from './slices/authSlice';
 import conversationReducer from './slices/conversationSlice';
 import conversationsReducer from './slices/conversationsSlice';
 import dropdownReducer from './slices/dropdownSlice';
-import sidebarReducer from './slices/sidebarSlice';
 import modalReducer from './slices/modalSlice';
+import sidebarReducer from './slices/sidebarSlice';
 
 export default configureStore({
   reducer: {
@@ -15,4 +16,5 @@ export default configureStore({
     conversation: conversationReducer,
     conversations: conversationsReducer,
   },
+  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), auth],
 });

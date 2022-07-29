@@ -16,6 +16,7 @@ import {
 import userAvatar from '../../images/user.png';
 import { ImageService } from '../../services/ImageService';
 import { toggleDropdown } from '../../slices/dropdownSlice';
+import { setModal } from '../../slices/modalSlice';
 import Button from '../Button';
 import EmojiPicker from '../EmojiPicker';
 import LazyImage from '../LazyImage';
@@ -83,9 +84,9 @@ function Chat() {
                           className={cx('sender-avatar')}
                           src={messageGroup[0]?.User?.avatar || userAvatar}
                           alt={
-                            messageGroup[0]?.User?.firstName +
+                            messageGroup[0]?.User?.lastName + 
                             ' ' +
-                            messageGroup[0]?.User?.lastName
+                            messageGroup[0]?.User?.firstName
                           }
                         />
                       </div>
@@ -94,6 +95,17 @@ function Chat() {
                           message.isImage ? (
                             <div
                               className={cx('message', 'message-image-wrapper')}
+                              onClick={() =>
+                                dispatch(
+                                  setModal({
+                                    name: 'preview-image',
+                                    data: {
+                                      url: message.message,
+                                    },
+                                  })
+                                )
+                              }
+                              key={message.id}
                             >
                               <LazyImage
                                 className={cx('message-image')}

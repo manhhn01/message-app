@@ -84,6 +84,7 @@
   max-width: calc(100% - 30px);
   width: 300px;
   height: 180px;
+  cursor: pointer;
 }
 
 .message-image {

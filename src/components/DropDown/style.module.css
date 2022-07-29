@@ -1,6 +1,7 @@
 .drop-down {
   position: absolute;
   top: calc(100% + 12px);
+  left: 0;
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -12,12 +13,14 @@
   z-index: 10;
 }
 
-.bottom-right {
-  left: 0;
+.bottom-left {
+  left: unset;
+  right: 0;
 }
 
-.bottom-left {
-  right: 0;
+.top-right {
+  top: unset;
+  bottom: calc(100% + 12px);
 }
 
 .caret {
@@ -29,4 +32,11 @@
   right: 50%;
   transform: translateX(50%);
   z-index: 11;
+}
+
+.caret.top-right {
+  top: unset;
+  bottom: calc(100% + 5px);
+  border-bottom: none;
+  border-top: 7px solid rgb(255, 255, 255);
 }

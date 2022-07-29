@@ -103,7 +103,7 @@ function Sidebar() {
         )}
       </div>
       <div className={cx('sidebar-footer')}>
-        <SettingButton />
+        <SettingButton dropdownPosition='top-right'/>
       </div>
     </div>
   );

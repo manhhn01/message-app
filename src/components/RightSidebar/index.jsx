@@ -10,13 +10,12 @@ import conversationImage from '../../images/conversation.png';
 import {
   removeConversation,
   removeMember,
-  updateConversation
+  updateConversation,
 } from '../../slices/conversationSlice';
 import { setModal } from '../../slices/modalSlice';
 import Button from '../Button';
 import Loading from '../Loading';
 import styles from './style.module.css';
-import UpdateConversationNameModal from './UpdateConversationNameModal';
 const cx = classNames.bind(styles);
 
 function RightSidebar() {
@@ -88,7 +87,10 @@ function RightSidebar() {
                   <span>Thay đổi ảnh</span>
                 </span>
               </li>
-              <li className={cx('conversation-option-item')}>
+              <li
+                className={cx('conversation-option-item')}
+                style={{ color: 'gray', cursor: 'default' }}
+              >
                 {!conversation.isSilent ? (
                   <>
                     <BiNotificationOff
@@ -151,7 +153,7 @@ function RightSidebar() {
                               )
                             }
                           >
-                            <BsTrash />
+                            <BsTrash className={cx('remove-member-btn')} />
                           </Button>
                         )}
                     </div>
@@ -159,7 +161,6 @@ function RightSidebar() {
                 </div>
               </div>
             </ul>
-            <UpdateConversationNameModal />
           </>
         )}
       </div>

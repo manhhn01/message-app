@@ -4,13 +4,14 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     name: '',
+    extraData: {},
   },
   reducers: {
     setModal: (state, action) => {
-      state.name = action.payload;
-    },
-    toggleModal: (state, action) => {
-      state.name = state.name === action.payload ? '' : action.payload;
+      if (action.payload.data) {
+        state.name = action.payload.name;
+        state.data = action.payload.data;
+      } else state.name = action.payload;
     },
   },
 });
