@@ -2,14 +2,14 @@ import classNames from 'classnames/bind';
 import { useMemo } from 'react';
 import { BsFillChatTextFill, BsPinAngleFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import { getDisplayTime } from '../../helpers';
+import { fetchConversation } from '../../slices/conversationSlice';
+import Loading from '../Loading';
 import ConversationGroup from './ConversationGroup';
 import Conversation from './ConversationGroup/Conversation';
 import Header from './Header';
-import Loading from '../Loading';
-import styles from './style.module.css';
-import { fetchConversation } from '../../slices/conversationSlice';
-import { getDisplayTime } from '../../helpers';
 import SettingButton from './SettingButton';
+import styles from './style.module.css';
 
 const cx = classNames.bind(styles);
 

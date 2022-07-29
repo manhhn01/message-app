@@ -1,4 +1,3 @@
-import classNames from 'classnames/bind';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PreviewImageModal from './PreviewImageModal';

@@ -4,7 +4,7 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     name: '',
-    extraData: {},
+    data: {},
   },
   reducers: {
     setModal: (state, action) => {

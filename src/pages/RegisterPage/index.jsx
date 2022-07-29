@@ -2,20 +2,18 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
 import Input from '../../components/Input';
 import LazyImage from '../../components/LazyImage';
 import { registerFormValidator } from '../../helpers';
-import { UserService } from '../../services/UserService';
-import styles from './style.module.css';
 import { register } from '../../slices/authSlice';
+import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
 function RegisterPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [registerInfo, setRegisterInfo] = useState({
     email: '',
     firstName: '',

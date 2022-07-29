@@ -10,7 +10,7 @@ import conversationImage from '../../images/conversation.png';
 import {
   removeConversation,
   removeMember,
-  updateConversation,
+  updateConversation
 } from '../../slices/conversationSlice';
 import { setModal } from '../../slices/modalSlice';
 import Button from '../Button';

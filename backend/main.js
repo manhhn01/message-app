@@ -1,21 +1,20 @@
-const path = require('path');
-const dotenv = require('dotenv');
-const express = require('express');
+const dotenv               = require('dotenv');
+const express              = require('express');
 const { urlencoded, json } = require('express');
-const { Server } = require('socket.io');
-const errorHandle = require('./middleware/errorHandle');
+const { Server }           = require('socket.io');
+const errorHandle          = require('./middleware/errorHandle');
 
-const app = express();
+const app    = express();
 const server = require('http').createServer(app);
-const io = new Server(server, {
+const io     = new Server(server, {
   path: '/api/socket',
 });
 
 require('./socket')(io);
 
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: '.env' });
 
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 443;
 
 app.use((req, res, next) => {
   console.log(req.url);

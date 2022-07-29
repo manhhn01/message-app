@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from './style.module.css';
 import classNames from 'classnames/bind';
-import Button from '../../Button';
+import React from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { setModal } from '../../../slices/modalSlice';
-import { AiOutlineClose } from 'react-icons/ai';
+import Button from '../../Button';
+import styles from './style.module.css';
 const cx = classNames.bind(styles);
 
 function BaseModal({ children, className, title }) {

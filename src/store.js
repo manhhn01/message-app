@@ -1,4 +1,4 @@
-import { configureStore, applyMiddleware, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import auth from './middleware/authMiddleware';
 import authReducer from './slices/authSlice';
 import conversationReducer from './slices/conversationSlice';
